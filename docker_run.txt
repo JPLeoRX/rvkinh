@@ -1,0 +1,5 @@
+# Build
+docker build -t tekleo-security-image .
+
+# Run (local)
+docker run --name=tekleo-security --rm -ti -p 9543:9543 tekleo-security-image
