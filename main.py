@@ -1,10 +1,13 @@
 # Run dependency injections
 import os
-import threading
-
+import tekleo_common_utils
 from injectable import load_injection_container
 load_injection_container()
+load_injection_container()
+load_injection_container(str(os.path.dirname(tekleo_common_utils.__file__)))
 
+
+import threading
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from resources.resource_jobs import router_jobs

@@ -26,6 +26,7 @@ RUN pip install stem==1.8.0
 RUN pip install aiohttp==3.8.1
 RUN pip install PySocks
 RUN pip install scapy
+RUN pip install tekleo-common-utils
 
 # Main app
 COPY . /app
