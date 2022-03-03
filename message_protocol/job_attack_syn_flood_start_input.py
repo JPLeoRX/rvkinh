@@ -3,7 +3,7 @@ from simplestr import gen_str_repr_eq
 
 
 @gen_str_repr_eq
-class JobAttackSynFloodInput(BaseModel):
+class JobAttackSynFloodStartInput(BaseModel):
     target_ip_address: str
     target_port: int
 

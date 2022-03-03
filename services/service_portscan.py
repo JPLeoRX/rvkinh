@@ -1,17 +1,23 @@
 import concurrent.futures
 import socket
+import socks
 import time
 from itertools import repeat
 from typing import List, Dict
-from injectable import injectable
+from injectable import injectable, autowired, Autowired
+
+from services.service_tor import ServiceTor
 
 
 @injectable
 class ServicePortscan:
-    def __init__(self):
+    @autowired
+    def __init__(self, service_tor: Autowired(ServiceTor)):
         self.THREAD_COUNT = 24
+        self.service_tor = service_tor
+        self.proxy_host, self.proxy_port = service_tor.get_proxy()
 
-    def check_port(self, target_ip_address: str, target_port: int, timeout: float = 0.5) -> (str, int, bool):
+    def check_port(self, target_ip_address: str, target_port: int, timeout: float = 1.0) -> (str, int, bool):
         ''' Try to connect to a specified host on a specified port.
         If the connection takes longer then the TIMEOUT we set we assume
         the host is down. If the connection is a success we can safely assume
@@ -19,8 +25,9 @@ class ServicePortscan:
         other reason we assume the host is down and the port is closed.'''
 
         # Create and configure the socket.
-        sock = socket.socket()
+        sock = socks.socksocket()
         sock.settimeout(timeout)
+        sock.set_proxy(socks.HTTP, self.proxy_host, self.proxy_port)
 
         # the SO_REUSEADDR flag tells the kernel to reuse a local
         # socket in TIME_WAIT state, without waiting for its natural
@@ -44,7 +51,7 @@ class ServicePortscan:
         # return True if port is open or False if port is closed.
         return target_ip_address, target_port, connected
 
-    def check_ports_sequential(self, target_ip_address: str, list_of_target_ports: List[int], timeout: float = 0.5) -> Dict[int, bool]:
+    def check_ports_sequential(self, target_ip_address: str, list_of_target_ports: List[int], timeout: float = 1.0) -> Dict[int, bool]:
         results_map = {}
 
         t1 = time.time()
@@ -57,7 +64,7 @@ class ServicePortscan:
         print('ServicePortscan.check_ports_sequential(): Checked ' + str(len(list_of_target_ports)) + ' ports at ' + target_ip_address + ' in ' + str(round(t, 3)) + ' s')
         return results_map
 
-    def check_ports_parallel(self, target_ip_address: str, list_of_target_ports: List[int], timeout: float = 0.5) -> Dict[int, bool]:
+    def check_ports_parallel(self, target_ip_address: str, list_of_target_ports: List[int], timeout: float = 1.0) -> Dict[int, bool]:
         results_map = {}
 
         t1 = time.time()
