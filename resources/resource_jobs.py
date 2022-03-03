@@ -1,5 +1,7 @@
 from fastapi import APIRouter
-from jobs.jobs_registry import JOB_ATTACK_SYN_FLOOD, JOB_ATTACK_PING_FLOOD
+from jobs.jobs_registry import JOB_ATTACK_SYN_FLOOD, JOB_ATTACK_PING_FLOOD, JOB_ATTACK_HTTP_FLOOD
+from message_protocol.job_attack_http_flood_start_input import JobAttackHttpFloodStartInput
+from message_protocol.job_attack_http_flood_status_output import JobAttackHttpFloodStatusOutput
 from message_protocol.job_attack_ping_flood_start_input import JobAttackPingFloodStartInput
 from message_protocol.job_attack_ping_flood_status_output import JobAttackPingFloodStatusOutput
 from message_protocol.job_attack_syn_flood_start_input import JobAttackSynFloodStartInput
@@ -68,4 +70,35 @@ def attack_ping_flood_stop() -> bool:
     else:
         JOB_ATTACK_PING_FLOOD.clean_target()
         return JOB_ATTACK_PING_FLOOD.stop()
+#-----------------------------------------------------------------------------------------------------------------------
+
+
+
+# Attack http flood
+#-----------------------------------------------------------------------------------------------------------------------
+@router_jobs.post("/job/attack/http_flood/start", response_model=bool)
+def attack_http_flood_start(input: JobAttackHttpFloodStartInput) -> bool:
+    if JOB_ATTACK_HTTP_FLOOD.is_running():
+        return False
+    else:
+        JOB_ATTACK_HTTP_FLOOD.set_target(input.target_ip_address)
+        return JOB_ATTACK_HTTP_FLOOD.start()
+
+
+@router_jobs.get("/job/attack/http_flood/status", response_model=JobAttackHttpFloodStatusOutput)
+def attack_http_flood_status() -> JobAttackHttpFloodStatusOutput:
+    target_ip_address = JOB_ATTACK_HTTP_FLOOD.target_ip_address
+    if target_ip_address is None:
+        target_ip_address = ''
+    is_running = JOB_ATTACK_HTTP_FLOOD.is_running()
+    return JobAttackHttpFloodStatusOutput(target_ip_address, is_running)
+
+
+@router_jobs.get("/job/attack/http_flood/stop", response_model=bool)
+def attack_http_flood_stop() -> bool:
+    if not JOB_ATTACK_HTTP_FLOOD.is_running():
+        return False
+    else:
+        JOB_ATTACK_HTTP_FLOOD.clean_target()
+        return JOB_ATTACK_HTTP_FLOOD.stop()
 #-----------------------------------------------------------------------------------------------------------------------
