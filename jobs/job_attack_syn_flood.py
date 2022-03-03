@@ -1,9 +1,9 @@
 import threading
 import time
-
 from jobs.abstract_job import AbstractJob
 from services.service_scapy import ServiceScapy
 from injectable import injectable, autowired, Autowired
+
 
 @injectable
 class JobAttackSynFlood(AbstractJob):
