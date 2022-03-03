@@ -81,17 +81,17 @@ def attack_http_flood_start(input: JobAttackHttpFloodStartInput) -> bool:
     if JOB_ATTACK_HTTP_FLOOD.is_running():
         return False
     else:
-        JOB_ATTACK_HTTP_FLOOD.set_target(input.target_ip_address)
+        JOB_ATTACK_HTTP_FLOOD.set_target(input.target_url)
         return JOB_ATTACK_HTTP_FLOOD.start()
 
 
 @router_jobs.get("/job/attack/http_flood/status", response_model=JobAttackHttpFloodStatusOutput)
 def attack_http_flood_status() -> JobAttackHttpFloodStatusOutput:
-    target_ip_address = JOB_ATTACK_HTTP_FLOOD.target_ip_address
-    if target_ip_address is None:
-        target_ip_address = ''
+    target_url = JOB_ATTACK_HTTP_FLOOD.target_url
+    if target_url is None:
+        target_url = ''
     is_running = JOB_ATTACK_HTTP_FLOOD.is_running()
-    return JobAttackHttpFloodStatusOutput(target_ip_address, is_running)
+    return JobAttackHttpFloodStatusOutput(target_url, is_running)
 
 
 @router_jobs.get("/job/attack/http_flood/stop", response_model=bool)

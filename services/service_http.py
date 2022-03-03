@@ -35,4 +35,5 @@ class ServiceHttp:
             response_content = response.content
         except:
             pass
+        print('ServiceHttp.http_get(): Returned code ' + str(response.status_code) + ' on ' + url)
         return HttpResponse(response.status_code, response_json, response_content)

