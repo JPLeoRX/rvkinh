@@ -34,7 +34,7 @@ class JobAttackPingFlood(AbstractJob):
             return
 
         # Launch separate threads with attacks
-        for thread_index in range(0, 40):
+        for thread_index in range(0, 60):
             thread = threading.Thread(target=self.launch_attack_in_thread, args=[thread_index])
             thread.start()
         time.sleep(2)
