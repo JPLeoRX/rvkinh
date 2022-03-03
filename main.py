@@ -32,3 +32,11 @@ app.include_router(router_portscan)
 from jobs.jobs_registry import JOB_ATTACK_SYN_FLOOD
 thread1 = threading.Thread(target=JOB_ATTACK_SYN_FLOOD.job_loop)
 thread1.start()
+
+# Shutdown handler
+@app.on_event('shutdown')
+def shutdown_event():
+    print('shutdown_event(): Started')
+    JOB_ATTACK_SYN_FLOOD.kill()
+    thread1.join()
+    print('shutdown_event(): Finished')

@@ -8,6 +8,12 @@ class AbstractJob:
         self.lock = threading.Lock()
         self.started = False
         self.stopped = False
+        self.killed = False
+
+    def kill(self) -> bool:
+        with self.lock:
+            self.killed = True
+            return True
 
     def start(self) -> bool:
         with self.lock:
@@ -33,7 +39,7 @@ class AbstractJob:
         pass
 
     def job_loop(self):
-        while True:
+        while not self.killed:
             # If this job hasn't started yet
             if not self.started:
                 self.idle()
