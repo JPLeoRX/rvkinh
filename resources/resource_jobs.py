@@ -19,7 +19,7 @@ def attack_syn_flood_start(input: JobAttackSynFloodStartInput) -> bool:
 
 
 @router_jobs.get("/job/attack/syn_flood/status", response_model=JobAttackSynFloodStatusOutput)
-def attack_syn_flood_is_running() -> JobAttackSynFloodStatusOutput:
+def attack_syn_flood_status() -> JobAttackSynFloodStatusOutput:
     target_ip_address = JOB_ATTACK_SYN_FLOOD.target_ip_address
     if target_ip_address is None:
         target_ip_address = ''
@@ -53,7 +53,7 @@ def attack_ping_flood_start(input: JobAttackPingFloodStartInput) -> bool:
 
 
 @router_jobs.get("/job/attack/ping_flood/status", response_model=JobAttackPingFloodStatusOutput)
-def attack_ping_flood_is_running() -> JobAttackPingFloodStatusOutput:
+def attack_ping_flood_status() -> JobAttackPingFloodStatusOutput:
     target_ip_address = JOB_ATTACK_PING_FLOOD.target_ip_address
     if target_ip_address is None:
         target_ip_address = ''
