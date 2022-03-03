@@ -1,9 +1,19 @@
+import os
 import threading
 import time
 from jobs.abstract_job import AbstractJob
 from services.service_scapy import ServiceScapy
 from injectable import injectable, autowired, Autowired
 
+CURRENT_CPU_COUNT = os.cpu_count()
+THREADS_BY_CPU_COUNT_MAP = {
+    1: 60,
+    2: 120
+}
+DELAYS_BY_CPU_COUNT_MAP = {
+    1: 2,
+    2: 1.25
+}
 
 @injectable
 class JobAttackPingFlood(AbstractJob):
@@ -34,9 +44,9 @@ class JobAttackPingFlood(AbstractJob):
             return
 
         # Launch separate threads with attacks
-        for thread_index in range(0, 60):
+        for thread_index in range(0, THREADS_BY_CPU_COUNT_MAP[CURRENT_CPU_COUNT]):
             thread = threading.Thread(target=self.launch_attack_in_thread, args=[thread_index])
             thread.start()
-        time.sleep(2)
+        time.sleep(DELAYS_BY_CPU_COUNT_MAP[CURRENT_CPU_COUNT])
 
         print('JobAttackPingFlood.job_iteration(): Finished')

