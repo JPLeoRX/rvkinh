@@ -12,6 +12,8 @@ from .portscan.portscan_check_multiple_output import PortscanCheckMultipleOutput
 from .portscan.portscan_check_single_input import PortscanCheckSingleInput
 from .portscan.portscan_check_single_output import PortscanCheckSingleOutput
 
+from .http_response import HttpResponse
+
 __all__ = [
     JobAttackHttpFloodStartInput,
     JobAttackHttpFloodStatusOutput,
@@ -25,5 +27,7 @@ __all__ = [
     PortscanCheckMultipleInput,
     PortscanCheckMultipleOutput,
     PortscanCheckSingleInput,
-    PortscanCheckSingleOutput
+    PortscanCheckSingleOutput,
+
+    HttpResponse,
 ]
