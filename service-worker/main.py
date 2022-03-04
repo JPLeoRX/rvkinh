@@ -3,7 +3,6 @@ import os
 import tekleo_common_utils
 from injectable import load_injection_container
 load_injection_container()
-load_injection_container()
 load_injection_container(str(os.path.dirname(tekleo_common_utils.__file__)))
 
 

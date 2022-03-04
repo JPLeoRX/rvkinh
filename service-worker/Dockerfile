@@ -1,6 +1,5 @@
-FROM python:3.8
-
 # Initial setup
+FROM python:3.8
 RUN apt-get update && apt-get upgrade -y
 
 # Install system utils
