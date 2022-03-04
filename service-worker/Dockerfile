@@ -24,16 +24,20 @@ RUN pip install injectable==3.4.4
 RUN pip install simplestr==0.5.0
 RUN pip install stem==1.8.0
 RUN pip install aiohttp==3.8.1
-RUN pip install PySocks
-RUN pip install scapy
-RUN pip install tekleo-common-utils
+#RUN pip install PySocks
+RUN pip install scapy==2.4.5
+RUN pip install stem==1.8.0
+RUN pip install tekleo-common-utils==0.0.0.2
+
+# Our message protocol
+COPY ./shared-message-protocol /shared-message-protocol
+WORKDIR /shared-message-protocol
+RUN python setup.py sdist bdist_wheel && pip install .
 
 # Main app
-COPY .. /app
+COPY ./service-worker /app
 WORKDIR /app
 RUN chmod a+x main.sh
 
 # Run command
-# CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "9543", "--workers", "1"]
-# Run
 CMD './main.sh'

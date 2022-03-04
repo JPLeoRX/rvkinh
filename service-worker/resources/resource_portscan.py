@@ -2,13 +2,8 @@ import time
 import concurrent.futures
 from itertools import repeat
 from fastapi import APIRouter
-from message_protocol.portscan_check_all_input import PortscanCheckAllInput
-from message_protocol.portscan_check_all_output import PortscanCheckAllOutput
-from message_protocol.portscan_check_single_input import PortscanCheckSingleInput
-from message_protocol.portscan_check_single_output import PortscanCheckSingleOutput
-from message_protocol.portscan_check_multiple_input import PortscanCheckMultipleInput
-from message_protocol.portscan_check_multiple_output import PortscanCheckMultipleOutput
-from worker.services import ServiceScapy
+from rvkinh_message_protocol import PortscanCheckAllInput, PortscanCheckAllOutput, PortscanCheckSingleInput, PortscanCheckSingleOutput, PortscanCheckMultipleInput, PortscanCheckMultipleOutput
+from services.service_scapy import ServiceScapy
 
 
 TOP_PORTS = [

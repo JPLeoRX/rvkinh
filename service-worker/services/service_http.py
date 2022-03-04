@@ -2,7 +2,7 @@ from typing import List, Dict, Any
 import requests
 from injectable import injectable, autowired, Autowired
 from tekleo_common_utils import UtilsRandom
-from message_protocol.http_response import HttpResponse
+from rvkinh_message_protocol import HttpResponse
 
 
 @injectable

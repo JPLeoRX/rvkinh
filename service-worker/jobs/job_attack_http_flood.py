@@ -1,8 +1,8 @@
 import os
 import threading
 import time
-from worker.jobs import AbstractJob
-from worker.services import ServiceHttp
+from jobs.abstract_job import AbstractJob
+from services.service_http import ServiceHttp
 from injectable import injectable, autowired, Autowired
 
 CURRENT_CPU_COUNT = os.cpu_count()
