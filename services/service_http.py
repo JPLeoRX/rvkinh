@@ -24,7 +24,12 @@ class ServiceHttp:
         }
 
     def http_get(self, url: str, headers: Dict = {}, proxies: Dict = {}, timeout: int = 10) -> HttpResponse:
-        response = requests.get(url, headers=headers, proxies=proxies, timeout=timeout)
+        try:
+            response = requests.get(url, headers=headers, proxies=proxies, timeout=timeout)
+        except:
+            print('ServiceHttp.http_get(): WARNING!!!! Request on ' + url + ' failed')
+            return HttpResponse(-1, None, None)
+
         response_json = None
         try:
             response_json = response.json()
@@ -35,5 +40,6 @@ class ServiceHttp:
             response_content = response.content
         except:
             pass
+
         print('ServiceHttp.http_get(): Returned code ' + str(response.status_code) + ' on ' + url)
         return HttpResponse(response.status_code, response_json, response_content)
