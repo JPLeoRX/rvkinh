@@ -1,6 +1,6 @@
-from worker_proxy_message_protocol import RabbitmqConfig
-from worker_proxy_utils.rabbitmq_sender import RabbitmqSender
-from worker_proxy_utils.rabbitmq_receiver import RabbitmqReceiver
+from rvkinh_proxy_message_protocol import RabbitmqConfig
+from rvkinh_proxy_utils.rabbitmq_sender import RabbitmqSender
+from rvkinh_proxy_utils.rabbitmq_receiver import RabbitmqReceiver
 from injectable import injectable
 
 

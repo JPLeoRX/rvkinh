@@ -1,6 +1,6 @@
 import os
 from injectable import injectable
-from worker_proxy_message_protocol import RabbitmqConfig
+from rvkinh_proxy_message_protocol import RabbitmqConfig
 
 
 @injectable
