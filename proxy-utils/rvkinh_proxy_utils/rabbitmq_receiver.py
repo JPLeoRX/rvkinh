@@ -36,7 +36,7 @@ class RabbitmqReceiver:
         channel = connection.channel()
         channel.queue_declare(queue=self.channel_name)
         channel.basic_consume(queue=self.channel_name, auto_ack=False, on_message_callback=self.callback)
-        connection.process_data_events()
+        channel.start_consuming()
         self.message_event.wait(timeout_in_seconds)
         connection.close()
         return self.message
