@@ -6,7 +6,7 @@ from itertools import repeat
 from typing import List, Dict
 from injectable import injectable, autowired, Autowired
 
-from services.service_tor import ServiceTor
+from worker.services import ServiceTor
 
 
 @injectable

@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from jobs.jobs_registry import JOB_ATTACK_SYN_FLOOD, JOB_ATTACK_PING_FLOOD, JOB_ATTACK_HTTP_FLOOD
+from worker.jobs import JOB_ATTACK_SYN_FLOOD, JOB_ATTACK_PING_FLOOD, JOB_ATTACK_HTTP_FLOOD
 from message_protocol.job_attack_http_flood_start_input import JobAttackHttpFloodStartInput
 from message_protocol.job_attack_http_flood_status_output import JobAttackHttpFloodStatusOutput
 from message_protocol.job_attack_ping_flood_start_input import JobAttackPingFloodStartInput

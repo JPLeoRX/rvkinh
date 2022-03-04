@@ -29,7 +29,7 @@ RUN pip install scapy
 RUN pip install tekleo-common-utils
 
 # Main app
-COPY . /app
+COPY .. /app
 WORKDIR /app
 RUN chmod a+x main.sh
 

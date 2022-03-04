@@ -8,8 +8,7 @@ from message_protocol.portscan_check_single_input import PortscanCheckSingleInpu
 from message_protocol.portscan_check_single_output import PortscanCheckSingleOutput
 from message_protocol.portscan_check_multiple_input import PortscanCheckMultipleInput
 from message_protocol.portscan_check_multiple_output import PortscanCheckMultipleOutput
-from services.service_portscan import ServicePortscan
-from services.service_scapy import ServiceScapy
+from worker.services import ServiceScapy
 
 
 TOP_PORTS = [
