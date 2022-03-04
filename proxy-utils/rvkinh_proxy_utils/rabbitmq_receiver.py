@@ -36,7 +36,24 @@ class RabbitmqReceiver:
         channel = connection.channel()
         channel.queue_declare(queue=self.channel_name)
         channel.basic_consume(queue=self.channel_name, auto_ack=False, on_message_callback=self.callback)
-        channel.start_consuming()
+
+        # Start listener in a separate thread
+        thread = threading.Thread(target=channel.start_consuming, args=[])
+        thread.start()
+        print('RabbitmqReceiver.receive(): Channel ' + str(self.channel_name) + ' started listener in new thread')
+
+        # Wait till the results are obtained
         self.message_event.wait(timeout_in_seconds)
-        connection.close()
+
+        # Gracefully kill channel
+        try:
+            channel.stop_consuming()
+            connection.close()
+        except:
+            pass
+        finally:
+            thread.join(1)
+        print('RabbitmqReceiver.receive(): Channel ' + str(self.channel_name) + ' ended listener, and closed thread')
+
+        # Return message
         return self.message
