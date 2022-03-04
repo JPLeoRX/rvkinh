@@ -11,6 +11,8 @@ class UtilsEnv:
         self.worker_proxy_rabbitmq_username = ''
         self.worker_proxy_rabbitmq_password = ''
         self.worker_proxy_client_proxied_base_url = ''
+        self.worker_proxy_cluster_id = ''
+        self.worker_proxy_worker_id = ''
         self.__reload()
 
     def __reload(self):
@@ -39,5 +41,22 @@ class UtilsEnv:
         else:
             print('UtilsEnv.__reload(): Warning! WORKER_PROXY_CLIENT_PROXIED_BASE_URL not found')
 
+        if 'WORKER_PROXY_CLUSTER_ID' in os.environ:
+            self.worker_proxy_cluster_id = os.environ['WORKER_PROXY_CLUSTER_ID']
+        else:
+            print('UtilsEnv.__reload(): Warning! WORKER_PROXY_CLUSTER_ID not found')
+
+        if 'WORKER_PROXY_WORKER_ID' in os.environ:
+            self.worker_proxy_worker_id = os.environ['WORKER_PROXY_WORKER_ID']
+        else:
+            print('UtilsEnv.__reload(): Warning! WORKER_PROXY_WORKER_ID not found')
+
     def get_rabbitmq_config(self) -> RabbitmqConfig:
-        return RabbitmqConfig(self.worker_proxy_rabbitmq_host, self.worker_proxy_rabbitmq_port, self.worker_proxy_rabbitmq_username, self.worker_proxy_rabbitmq_password)
+        return RabbitmqConfig(
+            self.worker_proxy_rabbitmq_host,
+            self.worker_proxy_rabbitmq_port,
+            self.worker_proxy_rabbitmq_username,
+            self.worker_proxy_rabbitmq_password,
+            self.worker_proxy_cluster_id,
+            self.worker_proxy_worker_id
+        )

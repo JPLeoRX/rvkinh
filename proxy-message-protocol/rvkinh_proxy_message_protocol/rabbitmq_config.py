@@ -8,6 +8,8 @@ class RabbitmqConfig(BaseModel):
     port: int
     username: str
     password: str
+    cluster_id: str
+    worker_id: str
 
-    def __init__(self, host: str, port: int, username: str, password: str) -> None:
-        super().__init__(host=host, port=port, username=username, password=password)
+    def __init__(self, host: str, port: int, username: str, password: str, cluster_id: str, worker_id: str) -> None:
+        super().__init__(host=host, port=port, username=username, password=password, cluster_id=cluster_id, worker_id=worker_id)
