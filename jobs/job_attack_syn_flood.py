@@ -7,14 +7,9 @@ from services.service_scapy import ServiceScapy
 from injectable import injectable, autowired, Autowired
 
 CURRENT_CPU_COUNT = os.cpu_count()
-THREADS_BY_CPU_COUNT_MAP = {
-    1: 60,
-    2: 120
-}
-DELAYS_BY_CPU_COUNT_MAP = {
-    1: 2,
-    2: 1.25
-}
+print('JobAttackSynFlood: CURRENT_CPU_COUNT=' + str(CURRENT_CPU_COUNT))
+THREADS_BY_CPU_COUNT_MAP = {1: 60, 2: 120}
+DELAYS_BY_CPU_COUNT_MAP = {1: 2, 2: 1.25}
 
 @injectable
 class JobAttackSynFlood(AbstractJob):

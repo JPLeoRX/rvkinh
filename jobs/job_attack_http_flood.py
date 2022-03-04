@@ -6,14 +6,9 @@ from services.service_http import ServiceHttp
 from injectable import injectable, autowired, Autowired
 
 CURRENT_CPU_COUNT = os.cpu_count()
-THREADS_BY_CPU_COUNT_MAP = {
-    1: 100,
-    2: 200
-}
-DELAYS_BY_CPU_COUNT_MAP = {
-    1: 3,
-    2: 2
-}
+print('JobAttackHttpFlood: CURRENT_CPU_COUNT=' + str(CURRENT_CPU_COUNT))
+THREADS_BY_CPU_COUNT_MAP = {1: 100, 2: 200}
+DELAYS_BY_CPU_COUNT_MAP = {1: 3, 2: 2}
 
 @injectable
 class JobAttackHttpFlood(AbstractJob):
