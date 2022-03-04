@@ -1,0 +1,3 @@
+# Run from this folder
+# These commands will build and install current module as a local PIP dependency
+python setup.py sdist bdist_wheel && pip install .
