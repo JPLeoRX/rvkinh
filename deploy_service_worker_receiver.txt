@@ -1,0 +1,8 @@
+# Make sure to login before pushing to docker
+docker login --username jpleorx
+
+# Run local
+docker build -t jpleorx/rvkinh-service-worker-receiver:latest -f service-worker-receiver/Dockerfile . && docker run --name=rvkinh-service-worker-receiver --rm -ti --network="host" -e WORKER_PROXY_CLUSTER_ID=cluster_t -e WORKER_PROXY_WORKER_ID=worker_t -e WORKER_PROXY_CLIENT_PROXIED_BASE_URL=http://127.0.0.1:9543/ -e WORKER_PROXY_RABBITMQ_HOST=127.0.0.1 -e WORKER_PROXY_RABBITMQ_PORT=5672 -e WORKER_PROXY_RABBITMQ_USERNAME=myUser -e WORKER_PROXY_RABBITMQ_PASSWORD=myPassword -p 7777:7777 jpleorx/rvkinh-service-worker-receiver:latest
+
+# Upload to dockerhub
+docker build -t jpleorx/rvkinh-service-worker-receiver:latest -f service-worker-receiver/Dockerfile . && docker push jpleorx/rvkinh-service-worker-receiver:latest

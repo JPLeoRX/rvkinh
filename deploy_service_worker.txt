@@ -2,7 +2,7 @@
 docker login --username jpleorx
 
 # Run local
-docker build -t jpleorx/rvkinh-service-worker:latest -f service-worker/Dockerfile . && docker run --name=rvkinh-service-worker --rm -ti -p 9543:9543 jpleorx/rvkinh-service-worker:latest
+docker build -t jpleorx/rvkinh-service-worker:latest -f service-worker/Dockerfile . && docker run --name=rvkinh-service-worker --rm -ti --network="host" -p 9543:9543 jpleorx/rvkinh-service-worker:latest
 
 # Upload to dockerhub
 docker build -t jpleorx/rvkinh-service-worker:latest -f service-worker/Dockerfile . && docker push jpleorx/rvkinh-service-worker:latest
