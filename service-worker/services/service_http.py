@@ -27,7 +27,7 @@ class ServiceHttp:
         try:
             response = requests.get(url, headers=headers, proxies=proxies, timeout=timeout)
         except:
-            print('ServiceHttp.http_get(): WARNING!!!! Request on ' + url + ' failed')
+            print('ServiceHttp.http_get(): WARNING!!!! Request on ' + str(url) + ' failed')
             return HttpResponse(-1, None, None)
 
         response_json = None
