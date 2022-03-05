@@ -22,7 +22,18 @@ class JobControllerNotifyAlive(AbstractJob):
 
     def job_iteration(self):
         print('JobControllerNotifyAlive.job_iteration(): Started')
-        self.client_controller_worker.worker_alive(self.controller_url, self.worker)
+
+        # Try to notify alive
+        try:
+            self.client_controller_worker.worker_alive(self.controller_url, self.worker)
+        except:
+            # Sleep and return
+            print('JobControllerNotifyAlive.job_iteration(): WARNING!!! Failed to notify alive to ' + str(self.controller_url))
+            print('JobControllerNotifyAlive.job_iteration(): Sleeping...')
+            time.sleep(30)
+            print('JobControllerNotifyAlive.job_iteration(): Finished')
+
+        # Sleep and return
         print('JobControllerNotifyAlive.job_iteration(): Notified alive to ' + str(self.controller_url))
         print('JobControllerNotifyAlive.job_iteration(): Sleeping...')
         time.sleep(60)

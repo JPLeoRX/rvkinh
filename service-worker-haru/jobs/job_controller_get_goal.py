@@ -29,10 +29,24 @@ class JobControllerGetGoal(AbstractJob):
 
     def job_iteration(self):
         print('JobControllerGetGoal.job_iteration(): Started')
-        goal = self.client_controller_worker.worker_goal_haru(self.controller_url, self.worker)
-        print('JobControllerGetGoal.job_iteration(): Retrieved goal ' + str(goal) + ' from ' + str(self.controller_url))
+
+        # Try to get goal
+        try:
+            goal = self.client_controller_worker.worker_goal_haru(self.controller_url, self.worker)
+        except:
+            # Sleep and return
+            print('JobControllerGetGoal.job_iteration(): WARNING!!! Failed to retrieve goal from ' + str(self.controller_url))
+            print('JobControllerGetGoal.job_iteration(): Sleeping...')
+            time.sleep(30)
+            print('JobControllerGetGoal.job_iteration(): Finished')
+            return
+
+        # Save goal
         self.storage_target.set_http_flood_target_urls(goal.http_flood_target_urls)
         self.storage_settings.set_worker_settings(goal.worker_settings)
+
+        # Sleep and return
+        print('JobControllerGetGoal.job_iteration(): Retrieved goal ' + str(goal) + ' from ' + str(self.controller_url))
         print('JobControllerGetGoal.job_iteration(): Sleeping...')
         time.sleep(20)
         print('JobControllerGetGoal.job_iteration(): Finished')
