@@ -30,7 +30,9 @@ JOB_CONTROLLER_NOTIFY_ALIVE.start()
 async def asyncio_main():
     current_epoch_number = 0
     while True:
-        await service_attack_http_flood.attack_epoch_safe(current_epoch_number)
+        should_continue = await service_attack_http_flood.attack_epoch_safe(current_epoch_number)
         current_epoch_number = current_epoch_number + 1
+        if not should_continue:
+            return
 
 asyncio.run(asyncio_main())

@@ -24,11 +24,15 @@ class ServiceAttackHttpFlood:
         self.utils_spoofing = utils_spoofing
         self.utils_tor = utils_tor
 
-    async def attack_epoch_safe(self, epoch_number: int):
+    async def attack_epoch_safe(self, epoch_number: int) -> bool:
         try:
             await self.attack_epoch(epoch_number)
+            return True
+        except KeyboardInterrupt as e:
+            return False
         except:
             print(traceback.format_exc())
+            return True
 
     async def attack_epoch(self, epoch_number: int):
         print('ServiceAttackHttpFlood.attack_epoch(): Started epoch #' + str(epoch_number))
