@@ -1,6 +1,6 @@
-from .client_controller_worker import ClientControllerWorker
+from .client_controller import ClientController
 
 
 __all__ = [
-    ClientControllerWorker,
+    ClientController,
 ]
