@@ -20,6 +20,7 @@ install_requires = [
     'injectable',
     'scapy',
     'aiohttp',
+    'stem',
     'tekleo-common-utils',
     'rvkinh-message-protocol'
 ]
