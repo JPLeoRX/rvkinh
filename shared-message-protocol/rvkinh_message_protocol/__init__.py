@@ -1,3 +1,8 @@
+from .controller.goal_akio_output import GoalAkioOutput
+from .controller.goal_haru_output import GoalHaruOutput
+from .controller.worker import Worker
+from .controller.worker_haru_settings import WorkerHaruSettings
+
 from .job.job_attack_http_flood_start_input import JobAttackHttpFloodStartInput
 from .job.job_attack_http_flood_status_output import JobAttackHttpFloodStatusOutput
 from .job.job_attack_ping_flood_start_input import JobAttackPingFloodStartInput
@@ -14,9 +19,13 @@ from .portscan.portscan_check_single_output import PortscanCheckSingleOutput
 
 from .http_parallel_response import HttpParallelResponse
 from .http_response import HttpResponse
-from .worker import Worker
 
 __all__ = [
+    GoalAkioOutput,
+    GoalHaruOutput,
+    Worker,
+    WorkerHaruSettings,
+
     JobAttackHttpFloodStartInput,
     JobAttackHttpFloodStatusOutput,
     JobAttackPingFloodStartInput,
@@ -33,5 +42,4 @@ __all__ = [
 
     HttpParallelResponse,
     HttpResponse,
-    Worker,
 ]
