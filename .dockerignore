@@ -1,0 +1,41 @@
+shared-message-protocol/build
+shared-message-protocol/dist
+shared-message-protocol/rvkinh_message_protocol.egg-info
+
+shared-message-client/build
+shared-message-client/dist
+shared-message-client/rvkinh_message_client.egg-info
+
+shared-utils/build
+shared-utils/dist
+shared-utils/rvkinh_utils.egg-info
+
+**/target/
+target/*
+*.iml
+*.idea
+
+gen/generated/*
+
+# Compiled class file
+*.class
+
+# Log file
+*.log
+
+# BlueJ files
+*.ctxt
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
