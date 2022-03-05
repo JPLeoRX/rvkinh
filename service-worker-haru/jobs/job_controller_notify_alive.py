@@ -3,16 +3,16 @@ from injectable import injectable, autowired, Autowired
 from tekleo_common_utils import UtilsEnv
 from rvkinh_message_protocol import Worker
 from rvkinh_utils import AbstractJob
-from rvkinh_message_client import ClientControllerWorker
+from rvkinh_message_client import ClientController
 
 
 
 @injectable
 class JobControllerNotifyAlive(AbstractJob):
     @autowired
-    def __init__(self, client_controller_worker: Autowired(ClientControllerWorker), utils_env: Autowired(UtilsEnv)):
+    def __init__(self, client_controller: Autowired(ClientController), utils_env: Autowired(UtilsEnv)):
         super().__init__()
-        self.client_controller_worker = client_controller_worker
+        self.client_controller = client_controller
         self.utils_env = utils_env
         self.utils_env.load_environment_variables(['CLUSTER_ID', 'WORKER_ID', 'CONTROLLER_URL'])
         self.cluster_id = self.utils_env.get_environment_variable('CLUSTER_ID')
@@ -25,7 +25,7 @@ class JobControllerNotifyAlive(AbstractJob):
 
         # Try to notify alive
         try:
-            self.client_controller_worker.worker_alive(self.controller_url, self.worker)
+            self.client_controller.worker_alive(self.controller_url, self.worker)
         except:
             # Sleep and return
             print('JobControllerNotifyAlive.job_iteration(): WARNING!!! Failed to notify alive to ' + str(self.controller_url))

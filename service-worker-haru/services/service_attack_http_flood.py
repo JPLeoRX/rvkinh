@@ -1,5 +1,6 @@
 import random
 import time
+import traceback
 from typing import Dict
 from aiohttp import ClientSession
 import asyncio
@@ -22,6 +23,12 @@ class ServiceAttackHttpFlood:
         self.utils_aiohttp = utils_aiohttp
         self.utils_spoofing = utils_spoofing
         self.utils_tor = utils_tor
+
+    async def attack_epoch_safe(self, epoch_number: int):
+        try:
+            await self.attack_epoch(epoch_number)
+        except:
+            print(traceback.format_exc())
 
     async def attack_epoch(self, epoch_number: int):
         print('ServiceAttackHttpFlood.attack_epoch(): Started epoch #' + str(epoch_number))
