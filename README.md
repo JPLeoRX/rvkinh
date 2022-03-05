@@ -7,13 +7,16 @@
 - Ping (ICMP) flood
 - HTTP GET flood
 
-# Run (worker only)
+
+# Run
+#### Worker AIKO
 ```shell script
-docker run --name=rvkinh-service-worker --rm -ti -p 9543:9543 jpleorx/rvkinh-service-worker:latest
+docker run --name=rvkinh-service-worker-aiko --rm -tid -e CLUSTER_ID=temp_c -e WORKER_ID=temp_w -e CONTROLLER_URL=http://142.93.38.82:8888 jpleorx/rvkinh-service-worker-aiko:latest
 ```
 
-# Run (worker with receiver)
+#### Controller
 ```shell script
-docker run --name=rvkinh-service-worker --rm -tid --network='host' -p 9543:9543 jpleorx/rvkinh-service-worker:latest
-docker run --name=rvkinh-service-worker-receiver --rm -tid --network='host' -e WORKER_PROXY_CLUSTER_ID=c2 -e WORKER_PROXY_WORKER_ID=w1 -e WORKER_PROXY_CLIENT_PROXIED_BASE_URL=http://127.0.0.1:9543/ -e WORKER_PROXY_RABBITMQ_HOST=142.93.38.82 -e WORKER_PROXY_RABBITMQ_PORT=5672 -e WORKER_PROXY_RABBITMQ_USERNAME=myUser -e WORKER_PROXY_RABBITMQ_PASSWORD=myPassword -p 7777:7777 jpleorx/rvkinh-service-worker-receiver:latest
+docker run --name=rvkinh-service-controller --rm -tid -p 8888:8888 jpleorx/rvkinh-service-controller:latest
 ```
+
+
