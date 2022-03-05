@@ -4,7 +4,7 @@ from simplestr import gen_str_repr_eq
 
 
 @gen_str_repr_eq
-class GoalAkioOutput(BaseModel):
+class GoalAkio(BaseModel):
     http_flood_target_urls: List[str]
     ping_flood_target_ip_address: str
     syn_flood_target_ip_address: str

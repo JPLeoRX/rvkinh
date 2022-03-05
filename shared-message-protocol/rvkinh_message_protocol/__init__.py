@@ -1,5 +1,6 @@
-from .controller.goal_akio_output import GoalAkioOutput
-from .controller.goal_haru_output import GoalHaruOutput
+from .controller.attack_orchestration import AttackOrchestration
+from .controller.goal_akio import GoalAkio
+from .controller.goal_haru import GoalHaru
 from .controller.worker import Worker
 from .controller.worker_haru_settings import WorkerHaruSettings
 
@@ -21,8 +22,9 @@ from .http_parallel_response import HttpParallelResponse
 from .http_response import HttpResponse
 
 __all__ = [
-    GoalAkioOutput,
-    GoalHaruOutput,
+    AttackOrchestration,
+    GoalAkio,
+    GoalHaru,
     Worker,
     WorkerHaruSettings,
 

@@ -5,7 +5,7 @@ from rvkinh_message_protocol.controller.worker_haru_settings import WorkerHaruSe
 
 
 @gen_str_repr_eq
-class GoalHaruOutput(BaseModel):
+class GoalHaru(BaseModel):
     http_flood_target_urls: List[str]
     worker_settings: WorkerHaruSettings
 
