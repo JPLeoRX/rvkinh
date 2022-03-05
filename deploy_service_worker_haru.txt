@@ -1,0 +1,9 @@
+# Run local
+docker build -t jpleorx/rvkinh-service-worker-haru:latest -f service-worker-haru/Dockerfile . && docker run --name=rvkinh-service-worker-haru --rm -ti --network='host' -e CLUSTER_ID=c1 -e WORKER_ID=w1 -e CONTROLLER_URL=http://127.0.0.1:8888 jpleorx/rvkinh-service-worker-haru:latest
+docker build -t jpleorx/rvkinh-service-worker-haru:latest -f service-worker-haru/Dockerfile . && docker run --name=rvkinh-service-worker-haru --rm -ti -e CLUSTER_ID=temp_c -e WORKER_ID=temp_w_1 -e CONTROLLER_URL=http://142.93.38.82:8888 jpleorx/rvkinh-service-worker-haru:latest
+
+# Run remote
+docker run --name=rvkinh-service-central --rm -ti --network="host" -e WORKER_PROXY_RABBITMQ_HOST=142.93.38.82 -e WORKER_PROXY_RABBITMQ_PORT=5672 -e WORKER_PROXY_RABBITMQ_USERNAME=myUser -e WORKER_PROXY_RABBITMQ_PASSWORD=myPassword -p 8888:8888 jpleorx/rvkinh-service-central:latest
+
+# Upload to dockerhub
+docker build -t jpleorx/rvkinh-service-central:latest -f service-central/Dockerfile . && docker push jpleorx/rvkinh-service-central:latest

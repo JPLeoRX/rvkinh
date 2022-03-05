@@ -29,7 +29,7 @@ def worker_goal_haru(worker: Worker) -> GoalHaru:
 
 
 # THIS IS FOR GENERIC SPECIALITY
-@router_worker.post("/worker/goal/akio", response_model=bool)
+@router_worker.post("/worker/goal/akio", response_model=GoalAkio)
 def worker_goal_akio(worker: Worker) -> GoalAkio:
     attack_orchestration = service_attack_orchestration.get()
     if worker.cluster_id not in attack_orchestration.goal_akio_by_cluster_id:

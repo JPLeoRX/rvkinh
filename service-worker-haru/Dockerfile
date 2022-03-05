@@ -37,7 +37,7 @@ COPY ./shared-utils /shared-utils
 WORKDIR /shared-utils
 RUN python setup.py sdist bdist_wheel && pip install .
 
-# Our message protocol
+# Our message client
 COPY ./shared-message-client /shared-message-client
 WORKDIR /shared-message-client
 RUN python setup.py sdist bdist_wheel && pip install .

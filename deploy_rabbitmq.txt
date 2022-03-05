@@ -1,2 +1,0 @@
-# Run local
-docker run --name=rvkinh-rabbitmq --rm -ti --network="host" -e RABBITMQ_DEFAULT_USER=myUser -e RABBITMQ_DEFAULT_PASS=myPassword -p 5672:5672 -p 15672:15672 rabbitmq:3-management

@@ -1,7 +1,0 @@
-docker login --username jpleorx
-docker build -t jpleorx/tekleo:tekleo-security .
-docker push jpleorx/tekleo:tekleo-security
-
-docker build -t jpleorx/tekleo:tekleo-security . && docker push jpleorx/tekleo:tekleo-security
-
-docker run --name=tekleo-security --rm -ti -p 9543:9543 jpleorx/tekleo:tekleo-security
