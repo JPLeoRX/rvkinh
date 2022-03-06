@@ -20,7 +20,7 @@ echo \
 apt-get update && apt-get install -y docker-ce docker-ce-cli containerd.io
 ```
 
-## Install Docker compose
+## Install Docker compose (optional)
 ```shell script
 curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 
@@ -35,10 +35,4 @@ sudo fallocate -l 6G /swapfile && sudo chmod 600 /swapfile
 sudo mkswap /swapfile && sudo swapon /swapfile
 echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
 free -h
-```
-
-## Download and run Tor Flood Attack
-```shell script
-docker login --username jpleorx
-docker run --name=tekleo-security --rm -tid -p 9543:9543 jpleorx/tekleo:tekleo-security
 ```
