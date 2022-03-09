@@ -40,8 +40,8 @@ def attack_orchestration_stop(authorized: bool = Depends(authorize_control)) -> 
     return service_attack_orchestration.set(AttackOrchestration({}, {}))
 
 
-@router_control.get("/attack/status", response_model=AttackOrchestration)
-def attack_status(authorized: bool = Depends(authorize_control)) -> AttackOrchestration:
+@router_control.get("/attack/orchestration/status", response_model=AttackOrchestration)
+def attack_orchestration_status(authorized: bool = Depends(authorize_control)) -> AttackOrchestration:
     return service_attack_orchestration.get()
 
 
