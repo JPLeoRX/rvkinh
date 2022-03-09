@@ -21,10 +21,11 @@ class JobControllerGetGoal(AbstractJob):
         self.storage_settings = storage_settings
         self.client_controller = client_controller
         self.utils_env = utils_env
-        self.utils_env.load_environment_variables(['CLUSTER_ID', 'WORKER_ID', 'CONTROLLER_URL'])
+        self.utils_env.load_environment_variables(['CLUSTER_ID', 'WORKER_ID', 'CONTROLLER_URL', 'WORKER_API_KEY'])
         self.cluster_id = self.utils_env.get_environment_variable('CLUSTER_ID')
         self.worker_id = self.utils_env.get_environment_variable('WORKER_ID')
         self.controller_url = self.utils_env.get_environment_variable('CONTROLLER_URL')
+        self.worker_api_key = self.utils_env.get_environment_variable('WORKER_API_KEY')
         self.worker = Worker(self.cluster_id, self.worker_id)
 
     def job_iteration(self):
@@ -32,7 +33,7 @@ class JobControllerGetGoal(AbstractJob):
 
         # Try to get goal
         try:
-            goal = self.client_controller.worker_goal_haru(self.controller_url, self.worker)
+            goal = self.client_controller.worker_goal_haru(self.controller_url, self.worker_api_key, self.worker)
         except:
             # Sleep and return
             print('JobControllerGetGoal.job_iteration(): WARNING!!! Failed to retrieve goal from ' + str(self.controller_url))
