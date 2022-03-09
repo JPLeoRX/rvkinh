@@ -12,9 +12,6 @@ STORAGE_TARGET_LOCK = threading.Lock()
 
 @injectable
 class StorageTarget:
-    def get_http_flood_target_urls(self) -> List[str]:
-        return HTTP_FLOOD_TARGET_URLS
-
     def get_ping_flood_target_ip_address(self) -> str:
         return PING_FLOOD_TARGET_IP_ADDRESS
 
@@ -23,11 +20,6 @@ class StorageTarget:
 
     def get_syn_flood_target_port(self) -> int:
         return SYN_FLOOD_TARGET_PORT
-
-    def set_http_flood_target_urls(self, http_flood_target_urls: List[str]):
-        with STORAGE_TARGET_LOCK:
-            global HTTP_FLOOD_TARGET_URLS
-            HTTP_FLOOD_TARGET_URLS = http_flood_target_urls
 
     def set_ping_flood_target_ip_address(self, ping_flood_target_ip_address: str):
         with STORAGE_TARGET_LOCK:

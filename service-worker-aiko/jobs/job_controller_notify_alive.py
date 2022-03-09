@@ -14,10 +14,11 @@ class JobControllerNotifyAlive(AbstractJob):
         super().__init__()
         self.client_controller = client_controller
         self.utils_env = utils_env
-        self.utils_env.load_environment_variables(['CLUSTER_ID', 'WORKER_ID', 'CONTROLLER_URL'])
+        self.utils_env.load_environment_variables(['CLUSTER_ID', 'WORKER_ID', 'CONTROLLER_URL', 'WORKER_API_KEY'])
         self.cluster_id = self.utils_env.get_environment_variable('CLUSTER_ID')
         self.worker_id = self.utils_env.get_environment_variable('WORKER_ID')
         self.controller_url = self.utils_env.get_environment_variable('CONTROLLER_URL')
+        self.worker_api_key = self.utils_env.get_environment_variable('WORKER_API_KEY')
         self.worker = Worker(self.cluster_id, self.worker_id)
 
     def job_iteration(self):
@@ -25,7 +26,7 @@ class JobControllerNotifyAlive(AbstractJob):
 
         # Try to notify alive
         try:
-            self.client_controller.worker_alive(self.controller_url, self.worker)
+            self.client_controller.worker_alive(self.controller_url, self.worker_api_key, self.worker)
         except:
             # Sleep and return
             print('JobControllerNotifyAlive.job_iteration(): WARNING!!! Failed to notify alive to ' + str(self.controller_url))
