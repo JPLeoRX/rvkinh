@@ -17,7 +17,7 @@ export class PortscanComponent implements OnInit {
   formGroup: FormGroup;
   hasResult: boolean = false;
   hasError: boolean = false;
-  list_of_target_open_ports: number[] = [];
+  listOfTargetOpenPorts: number[] = [];
 
   constructor(private _formBuilder: FormBuilder, private _clientService: ClientService) {
     this.formGroup = this._formBuilder.group({
@@ -52,8 +52,8 @@ export class PortscanComponent implements OnInit {
 
       this._clientService.portscanCheckAll(portscanCheckAllInput).subscribe({
         next: (output: PortscanCheckAllOutput) => {
-          this.list_of_target_open_ports = output.list_of_target_open_ports;
-          console.log(this.list_of_target_open_ports)
+          this.listOfTargetOpenPorts = output.list_of_target_open_ports;
+          console.log(this.listOfTargetOpenPorts)
           this.loading = false;
           this.hasError = false;
           this.hasResult = true;
@@ -78,8 +78,8 @@ export class PortscanComponent implements OnInit {
 
       this._clientService.portscanCheckMultiple(portscanCheckMultipleInput).subscribe({
         next: (output: PortscanCheckMultipleOutput) => {
-          this.list_of_target_open_ports = output.list_of_target_open_ports;
-          console.log(this.list_of_target_open_ports)
+          this.listOfTargetOpenPorts = output.list_of_target_open_ports;
+          console.log(this.listOfTargetOpenPorts)
           this.loading = false;
           this.hasError = false;
           this.hasResult = true;
