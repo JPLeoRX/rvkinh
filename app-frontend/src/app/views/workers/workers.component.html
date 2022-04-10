@@ -1,1 +1,47 @@
-<p>workers works!</p>
+<hr>
+
+<!-- Spinner -->
+<div class="container py-1" *ngIf="loading">
+  <div class="row">
+    <div class="col">
+      <mat-spinner class="mx-auto"></mat-spinner>
+    </div>
+  </div>
+</div>
+
+<!-- Results -->
+<div class="container py-1" *ngIf="hasResult">
+  <div class="row">
+    <h1>Workers</h1>
+  </div>
+  <div class="row px-3 mx-3 py-1" *ngFor="let c of listOfClusters">
+    <h4>Cluster: {{c}}</h4>
+    <mat-grid-list cols="6" rowHeight="5:1">
+      <div *ngFor="let w of listOfWorkers">
+        <mat-grid-tile *ngIf="w.cluster_id == c">
+          <span class="badge alert-success px-3 py-2 mx-1 badge-worker">{{w.worker_id}}</span>
+        </mat-grid-tile>
+      </div>
+    </mat-grid-list>
+  </div>
+
+  <div class="row px-3 mx-3 py-1 alert alert-danger" *ngIf="listOfWorkers.length === 0">
+    <h4>No workers...</h4>
+    <p>There are no active workers connected to this controller at the moment</p>
+  </div>
+</div>
+
+<!-- Error -->
+<div class="container py-1" *ngIf="hasError">
+  <div class="row alert alert-danger align-items-center">
+    <div class="col">
+      <h4>Ooops...</h4>
+      <p>Something went wrong, and we couldn't fetch active workers, try refreshing the page or restarting controller</p>
+    </div>
+    <div class="col-2">
+      <mat-icon class="error-icon">warning_amber</mat-icon>
+    </div>
+  </div>
+</div>
+
+<hr>
