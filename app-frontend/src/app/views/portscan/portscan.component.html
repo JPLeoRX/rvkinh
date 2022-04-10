@@ -1,0 +1,66 @@
+<hr>
+
+<!-- Form -->
+<form [formGroup]="formGroup" (ngSubmit)="onFormSubmit()" novalidate>
+  <div class="container py-1">
+    <div class="row">
+      <h1>Portscan</h1>
+      <p>You can check which ports are open on the server that you want to target</p>
+    </div>
+
+    <div class="row align-items-center">
+      <div class="col">
+        <mat-form-field>
+          <mat-label>IP Address</mat-label>
+          <input matInput placeholder="8.8.8.8" formControlName="target_ip_address">
+        </mat-form-field>
+      </div>
+
+      <div class="col">
+        <mat-form-field class="px-2 mx-2">
+          <mat-label>Ports (separated with commas ",")</mat-label>
+          <input matInput placeholder="22, 80, 8080, 443" [disabled]="scanAll">
+        </mat-form-field>
+        <mat-checkbox class="px-2 mx-2" [checked]="scanAll" (change)="onScanAllCheckbox()">Scan all common ports</mat-checkbox>
+      </div>
+
+      <div class="col-2" align="center">
+        <button mat-raised-button color="primary" class="mx-auto">Scan</button>
+      </div>
+    </div>
+  </div>
+</form>
+
+<!-- Spinner -->
+<div class="container py-1" *ngIf="loading">
+  <div class="row">
+    <div class="col">
+      <mat-spinner class="mx-auto"></mat-spinner>
+    </div>
+  </div>
+</div>
+
+<!-- Results -->
+<div class="container py-1" *ngIf="hasResult">
+  <div class="row">
+    <h4>Open ports</h4>
+    <p>We've scanned and found the following ports to be open:</p>
+    <div class="col">
+      <span class="badge alert-success px-3 py-2 mx-1 badge-port" *ngFor="let p of list_of_target_open_ports">{{p}}</span>
+    </div>
+  </div>
+</div>
+
+<!-- Error -->
+<div class="container py-1" *ngIf="hasError">
+  <div class="row alert alert-danger align-items-center">
+    <div class="col">
+      <h4>Ooops...</h4>
+      <p>Something went wrong, and we couldn't scan the ports on the given IP address</p>
+    </div>
+    <div class="col-2">
+      <mat-icon class="error-icon">warning_amber</mat-icon>
+    </div>
+  </div>
+</div>
+<hr>
