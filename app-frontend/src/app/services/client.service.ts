@@ -67,4 +67,9 @@ export class ClientService {
     // REST request
     return this.http.post<boolean>(this._getBaseUrl() + '/attack/orchestration/start', data, {headers: this._getHeaders()});
   }
+
+  attackOrchestrationStop(): Observable<boolean> {
+    // REST request
+    return this.http.get<boolean>(this._getBaseUrl() + '/attack/orchestration/stop', {headers: this._getHeaders()});
+  }
 }
