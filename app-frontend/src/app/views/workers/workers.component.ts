@@ -10,7 +10,7 @@ import {PortscanCheckMultipleOutput} from "../../message-protocol/portscan-check
 })
 export class WorkersComponent implements OnInit {
   loading: boolean = false;
-  hasResult: boolean = true;
+  hasResult: boolean = false;
   hasError: boolean = false;
   listOfWorkers: Worker[] = []
   // listOfWorkers: Worker[] = [
@@ -41,9 +41,14 @@ export class WorkersComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadWorkers();
+
+    setInterval(() => {
+      this.reloadWorkers();
+    }, 6000)
   }
 
   loadWorkers() {
+    console.log('workers.component.loadWorkers(): Started')
     this.hasResult = false;
     this.hasError = false;
     this.loading = true;
@@ -64,4 +69,22 @@ export class WorkersComponent implements OnInit {
     });
   }
 
+  reloadWorkers() {
+    console.log('workers.component.reloadWorkers(): Started')
+
+    this._clientService.workersAlive().subscribe({
+      next: (output: Worker[]) => {
+        this.listOfWorkers = output;
+        this.listOfClusters = Array.from(new Set(this.listOfWorkers.map(e => e.cluster_id)));
+        this.loading = false;
+        this.hasError = false;
+        this.hasResult = true;
+      },
+      error: (err) => {
+        this.loading = false;
+        this.hasResult = false;
+        this.hasError = true;
+      }
+    });
+  }
 }

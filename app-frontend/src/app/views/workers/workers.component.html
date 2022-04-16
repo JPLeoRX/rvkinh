@@ -12,7 +12,8 @@
 <!-- Results -->
 <div class="container py-1" *ngIf="hasResult">
   <div class="row">
-    <h1>Workers</h1>
+    <h1>Dashboard</h1>
+    <p>Your workers that are currently online</p>
   </div>
   <div class="row px-3 mx-3 py-1" *ngFor="let c of listOfClusters">
     <h4>Cluster: {{c}}</h4>
@@ -43,5 +44,3 @@
     </div>
   </div>
 </div>
-
-<hr>
