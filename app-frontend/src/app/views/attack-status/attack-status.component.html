@@ -1,0 +1,64 @@
+<!-- Spinner -->
+<div class="container py-1" *ngIf="loadingWorkers || loadingStatus">
+  <div class="row">
+    <div class="col">
+      <mat-spinner class="mx-auto"></mat-spinner>
+    </div>
+  </div>
+</div>
+
+<div class="container" *ngIf="hasResultStatus && hasResultWorkers">
+  <div class="container px-3 mx-3" *ngFor="let c of listOfClusters">
+    <div class="row">
+      <h4>Cluster: {{c}}</h4>
+    </div>
+
+    <div class="row" *ngIf="isStopped(c)">
+      <p>This cluster has no active attack goals</p>
+    </div>
+
+    <div class="row" *ngIf="!isStopped(c)">
+      <div class="col">
+        <p>PING Flood Target IP Address: <strong>{{attackOrchestrationStatus.goal_akio_by_cluster_id[c].ping_flood_target_ip_address}}</strong></p>
+      </div>
+
+      <div class="col">
+        <p>SYN Flood Target IP Address: <strong>{{attackOrchestrationStatus.goal_akio_by_cluster_id[c].syn_flood_target_ip_address}}</strong></p>
+      </div>
+
+      <div class="col">
+        <p>SYN Flood Target Port: <strong>{{attackOrchestrationStatus.goal_akio_by_cluster_id[c].syn_flood_target_port}}</strong></p>
+      </div>
+    </div>
+
+    <div class="row" *ngIf="!isStopped(c)">
+      <div class="col-4">
+        <p>HTTP Flood Targets URLs:</p>
+        <p *ngFor="let u of attackOrchestrationStatus.goal_haru_by_cluster_id[c].http_flood_target_urls"><strong>{{u}}</strong></p>
+      </div>
+
+      <div class="col-8">
+        <div class="row align-items-center">
+          <div class="col">
+            <p>Parallel Min Requests: <strong>{{attackOrchestrationStatus.goal_haru_by_cluster_id[c].worker_settings.parallel_min_requests}}</strong></p>
+          </div>
+
+          <div class="col">
+            <p>Parallel Max Requests: <strong>{{attackOrchestrationStatus.goal_haru_by_cluster_id[c].worker_settings.parallel_max_requests}}</strong></p>
+          </div>
+        </div>
+
+        <div class="row align-items-center">
+          <div class="col">
+            <p *ngIf="attackOrchestrationStatus.goal_haru_by_cluster_id[c].worker_settings.proxy_type === 'tor'">Proxy Type: <strong>TOR</strong></p>
+            <p *ngIf="attackOrchestrationStatus.goal_haru_by_cluster_id[c].worker_settings.proxy_type === 'none'">Proxy Type: <strong>None</strong></p>
+          </div>
+
+          <div class="col">
+            <p>Proxy IP Change Frequency: <strong>{{attackOrchestrationStatus.goal_haru_by_cluster_id[c].worker_settings.proxy_ip_change_frequency}}</strong></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
