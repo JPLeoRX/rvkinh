@@ -23,13 +23,21 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {MatChipsModule} from "@angular/material/chips";
 import {MatIconModule} from "@angular/material/icon";
+import { AttackStartSingleComponent } from './views/attack-start-single/attack-start-single.component';
+import { AttackStartMultipleComponent } from './views/attack-start-multiple/attack-start-multiple.component';
+import {MatSlideToggleModule} from "@angular/material/slide-toggle";
+import {MatRadioModule} from "@angular/material/radio";
+import { AttackStatusComponent } from './views/attack-status/attack-status.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PortscanComponent,
     WorkersComponent,
-    AttackComponent
+    AttackComponent,
+    AttackStartSingleComponent,
+    AttackStartMultipleComponent,
+    AttackStatusComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +46,7 @@ import {MatIconModule} from "@angular/material/icon";
     HttpClientModule,
     MatSelectModule, MatInputModule, MatDatepickerModule, MatNativeDateModule, MatGridListModule, MatSliderModule,
     MatButtonModule, MatButtonToggleModule, MatDividerModule, MatCardModule, MatProgressSpinnerModule, MatCheckboxModule,
-    MatChipsModule, MatIconModule,
+    MatChipsModule, MatIconModule, MatSlideToggleModule, MatRadioModule,
     ReactiveFormsModule,
   ],
   providers: [],

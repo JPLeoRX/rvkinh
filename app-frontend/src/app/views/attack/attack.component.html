@@ -1,1 +1,39 @@
-<p>attack works!</p>
+<hr>
+
+<div class="container py-1">
+  <div class="row align-items-center">
+    <div class="col-4">
+      <h1>Current Attack</h1>
+      <p>What are your current attack goals</p>
+    </div>
+
+    <div class="col-4">
+      <button mat-raised-button color="warn" class="mx-auto" (click)="onStopAttackButton()">Stop Attack</button>
+    </div>
+
+    <div class="col-4" *ngIf="hasErrorAttackStop">
+      <span class="alert alert-danger">Failed to stop attack!</span>
+    </div>
+
+    <div class="col-4" *ngIf="hasResultAttackStop">
+      <span class="alert alert-success">Stopped the attack!</span>
+    </div>
+  </div>
+  <app-attack-status></app-attack-status>
+
+  <div class="row">
+    <div class="col">
+      <h1>Setting Attack Goals</h1>
+      <p>You can set goals to target servers / urls for the attack here</p>
+    </div>
+
+    <div class="col align-self-end">
+      <mat-checkbox [checked]="goalSingleEnabled" (change)="onGoalSingleCheckbox()">Use same targets for all clusters</mat-checkbox>
+    </div>
+  </div>
+
+  <app-attack-start-multiple *ngIf="!goalSingleEnabled"></app-attack-start-multiple>
+  <app-attack-start-single *ngIf="goalSingleEnabled"></app-attack-start-single>
+</div>
+
+<br>
