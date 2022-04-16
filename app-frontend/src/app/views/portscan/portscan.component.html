@@ -13,6 +13,7 @@
         <mat-form-field>
           <mat-label>IP Address</mat-label>
           <input matInput placeholder="8.8.8.8" formControlName="target_ip_address">
+          <mat-error *ngIf="formGroup.get('target_ip_address')?.hasError('required')">You must provide an IP address</mat-error>
         </mat-form-field>
       </div>
 
@@ -20,6 +21,7 @@
         <mat-form-field class="px-2 mx-2">
           <mat-label>Ports (separated with commas ",")</mat-label>
           <input matInput placeholder="22, 80, 8080, 443" formControlName="target_ports">
+          <mat-error *ngIf="formGroup.get('target_ports')?.hasError('required')">You must specify at least 1 port</mat-error>
         </mat-form-field>
         <mat-checkbox class="px-2 mx-2" [checked]="scanAll" (change)="onScanAllCheckbox()">Scan all common ports</mat-checkbox>
       </div>
