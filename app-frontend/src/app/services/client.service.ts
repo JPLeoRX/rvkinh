@@ -6,6 +6,8 @@ import {PortscanCheckAllOutput} from "../message-protocol/portscan-check-all-out
 import {environment} from "../../environments/environment";
 import {PortscanCheckMultipleInput} from "../message-protocol/portscan-check-multiple-input.model";
 import {PortscanCheckMultipleOutput} from "../message-protocol/portscan-check-multiple-output.model";
+import {Worker} from "../message-protocol/worker.model";
+import {AttackOrchestration} from "../message-protocol/attack-orchestration.model";
 
 @Injectable({
   providedIn: 'root'
@@ -43,5 +45,26 @@ export class ClientService {
 
     // REST request
     return this.http.post<PortscanCheckMultipleOutput>(this._getBaseUrl() + '/portscan/check/multiple', data, {headers: this._getHeaders()});
+  }
+
+  workersAlive(): Observable<Worker[]> {
+    // REST request
+    return this.http.get<Worker[]>(this._getBaseUrl() + '/system/workers_alive', {headers: this._getHeaders()});
+  }
+
+  attackOrchestrationStatus(): Observable<AttackOrchestration> {
+    // REST request
+    return this.http.get<AttackOrchestration>(this._getBaseUrl() + '/attack/orchestration/status', {headers: this._getHeaders()});
+  }
+
+  attackOrchestrationStart(attackOrchestration: AttackOrchestration): Observable<boolean> {
+    // Extract data and prepare it for passing as JSON
+    let data = {
+      goal_akio_by_cluster_id: attackOrchestration.goal_akio_by_cluster_id,
+      goal_haru_by_cluster_id: attackOrchestration.goal_haru_by_cluster_id,
+    };
+
+    // REST request
+    return this.http.post<boolean>(this._getBaseUrl() + '/attack/orchestration/start', data, {headers: this._getHeaders()});
   }
 }
