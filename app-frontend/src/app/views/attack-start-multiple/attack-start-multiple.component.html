@@ -1,5 +1,15 @@
-<div class="container">
-  <form [formGroup]="formGroup" (ngSubmit)="onFormSubmit()" novalidate *ngIf="hasResultWorkers">
+<!-- Spinner -->
+<div class="container py-1" *ngIf="loadingWorkers">
+  <div class="row">
+    <div class="col">
+      <mat-spinner class="mx-auto"></mat-spinner>
+    </div>
+  </div>
+</div>
+
+<!-- Form -->
+<div class="container" *ngIf="hasResultWorkers">
+  <form [formGroup]="formGroup" (ngSubmit)="onFormSubmit()" novalidate>
     <div class="container px-3 mx-3" *ngFor="let c of listOfClusters">
       <div class="row">
         <h4>Cluster: {{c}}</h4>
