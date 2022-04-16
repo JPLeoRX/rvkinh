@@ -1,0 +1,94 @@
+<div class="container">
+  <form [formGroup]="formGroup" (ngSubmit)="onFormSubmit()" novalidate *ngIf="hasResultWorkers">
+    <div class="container px-3 mx-3" *ngFor="let c of listOfClusters">
+      <div class="row">
+        <h4>Cluster: {{c}}</h4>
+      </div>
+
+      <div class="row align-items-center">
+        <div class="col">
+          <mat-form-field class="mat-form-field-wide">
+            <mat-label>PING Flood Target IP Address</mat-label>
+            <input matInput placeholder="8.8.8.8" formControlName="ping_flood_target_ip_address_{{c}}">
+          </mat-form-field>
+        </div>
+
+        <div class="col">
+          <mat-form-field class="mat-form-field-wide">
+            <mat-label>SYN Flood Target IP Address</mat-label>
+            <input matInput placeholder="8.8.8.8" formControlName="syn_flood_target_ip_address_{{c}}">
+          </mat-form-field>
+        </div>
+
+        <div class="col">
+          <mat-form-field class="mat-form-field-wide">
+            <mat-label>SYN Flood Target Port</mat-label>
+            <input matInput placeholder="443" formControlName="syn_flood_target_port_{{c}}" type="number">
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row align-items-center">
+        <div class="col-4">
+          <mat-form-field class="mat-form-field-wide">
+            <mat-label>HTTP Flood Targets URLs</mat-label>
+            <textarea matInput placeholder="https://google.com{{'\n'}}https://ebay.com" formControlName="http_flood_target_urls_{{c}}"></textarea>
+          </mat-form-field>
+        </div>
+
+        <div class="col-8">
+          <div class="row align-items-center">
+            <div class="col">
+              <mat-form-field>
+                <mat-label>Parallel Min Requests</mat-label>
+                <input matInput placeholder="200" value="200" formControlName="parallel_min_requests_{{c}}" type="number">
+              </mat-form-field>
+            </div>
+
+            <div class="col">
+              <mat-form-field>
+                <mat-label>Parallel Max Requests</mat-label>
+                <input matInput placeholder="600" value="600" formControlName="parallel_max_requests_{{c}}" type="number">
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="row align-items-center">
+            <div class="col">
+              <mat-form-field>
+                <mat-label>Proxy Type</mat-label>
+                <mat-select formControlName="proxy_type_{{c}}">
+                  <mat-option value="tor">TOR</mat-option>
+                  <mat-option value="none">None</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div class="col">
+              <mat-form-field>
+                <mat-label>Proxy IP Change Frequency</mat-label>
+                <input matInput placeholder="10" value="10" formControlName="proxy_ip_change_frequency_{{c}}" type="number">
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container px-3 mx-3">
+      <div class="row align-items-center">
+        <div class="col-2">
+          <button mat-raised-button color="primary" class="mx-auto">Launch Attack</button>
+        </div>
+
+        <div class="col-4" *ngIf="hasErrorAttackStart">
+          <span class="alert alert-danger">Failed to launch attack!</span>
+        </div>
+
+        <div class="col-4" *ngIf="hasResultAttackStart">
+          <span class="alert alert-success">Launched new attack!</span>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
