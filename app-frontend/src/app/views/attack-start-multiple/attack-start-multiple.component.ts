@@ -21,7 +21,6 @@ export class AttackStartMultipleComponent implements OnInit {
   listOfWorkers: Worker[] = [];
   listOfClusters: string[] = [];
 
-  loadingAttackStart: boolean = false;
   hasResultAttackStart: boolean = false;
   hasErrorAttackStart: boolean = false;
 
@@ -80,7 +79,7 @@ export class AttackStartMultipleComponent implements OnInit {
 
     let goal_haru_by_cluster_id: Record<string, GoalHaru> = {};
     for (let cluster of this.listOfClusters) {
-      let http_flood_target_urls = this.formGroup.get('http_flood_target_urls_' + cluster)?.value.replaceAll(" ", "").toLowerCase().split(",").filter((s: string) => s.length > 0)
+      let http_flood_target_urls = this.formGroup.get('http_flood_target_urls_' + cluster)?.value.split("\n").filter((s: string) => s.length > 0)
 
       let worker_settings = new WorkerHaruSettings({
         parallel_min_requests: this.formGroup.get('parallel_min_requests_' + cluster)?.value,
