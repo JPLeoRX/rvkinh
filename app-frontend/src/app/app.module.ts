@@ -28,6 +28,8 @@ import { AttackStartMultipleComponent } from './views/attack-start-multiple/atta
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {MatRadioModule} from "@angular/material/radio";
 import { AttackStatusComponent } from './views/attack-status/attack-status.component';
+import { HeaderComponent } from './views/header/header.component';
+import { FooterComponent } from './views/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,9 @@ import { AttackStatusComponent } from './views/attack-status/attack-status.compo
     AttackComponent,
     AttackStartSingleComponent,
     AttackStartMultipleComponent,
-    AttackStatusComponent
+    AttackStatusComponent,
+    HeaderComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

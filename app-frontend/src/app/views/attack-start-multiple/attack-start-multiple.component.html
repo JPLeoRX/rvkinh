@@ -10,6 +10,12 @@
 <!-- Form -->
 <div class="container" *ngIf="hasResultWorkers">
   <form [formGroup]="formGroup" (ngSubmit)="onFormSubmit()" novalidate>
+    <div class="container px-3 mx-3 py-1" *ngIf="listOfClusters.length == 0">
+      <div class="row">
+        <p>No workers connected to this controller at the moment, so effectively there are no active attack goals</p>
+      </div>
+    </div>
+
     <div class="container px-3 mx-3" *ngFor="let c of listOfClusters">
       <div class="row">
         <h4>Cluster: {{c}}</h4>
@@ -85,7 +91,7 @@
       </div>
     </div>
 
-    <div class="container px-3 mx-3">
+    <div class="container px-3 mx-3" *ngIf="listOfClusters.length > 0">
       <div class="row align-items-center">
         <div class="col-2">
           <button mat-raised-button color="primary" class="mx-auto">Launch Attack</button>
@@ -101,4 +107,17 @@
       </div>
     </div>
   </form>
+</div>
+
+<!-- Error -->
+<div class="container py-1" *ngIf="hasErrorWorkers">
+  <div class="row px-1 mx-1 py-1 alert alert-danger align-items-center">
+    <div class="col">
+      <h4>Ooops...</h4>
+      <p>Something went wrong, and we couldn't fetch active workers, try refreshing the page or restarting controller</p>
+    </div>
+    <div class="col-2">
+      <mat-icon class="error-icon">warning_amber</mat-icon>
+    </div>
+  </div>
 </div>

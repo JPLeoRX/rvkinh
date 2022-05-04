@@ -1,5 +1,3 @@
-<hr>
-
 <!-- Spinner -->
 <div class="container py-1" *ngIf="loading">
   <div class="row">
@@ -15,6 +13,7 @@
     <h1>Dashboard</h1>
     <p>Your workers that are currently online</p>
   </div>
+
   <div class="row px-3 mx-3 py-1" *ngFor="let c of listOfClusters">
     <h4>Cluster: {{c}}</h4>
     <mat-grid-list cols="6" rowHeight="5:1">
@@ -34,7 +33,12 @@
 
 <!-- Error -->
 <div class="container py-1" *ngIf="hasError">
-  <div class="row alert alert-danger align-items-center">
+  <div class="row">
+    <h1>Dashboard</h1>
+    <p>Your workers that are currently online</p>
+  </div>
+
+  <div class="row px-3 mx-3 py-1 alert alert-danger align-items-center">
     <div class="col">
       <h4>Ooops...</h4>
       <p>Something went wrong, and we couldn't fetch active workers, try refreshing the page or restarting controller</p>
