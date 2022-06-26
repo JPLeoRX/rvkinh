@@ -12,3 +12,21 @@ docker build -t jpleorx/rvkinh-service-worker-haru:latest -f service-worker-haru
 
 docker build -t jpleorx/rvkinh-service-worker-haru:latest -f service-worker-haru/Dockerfile .
 docker run --name=rvkinh-service-worker-haru-1 --rm -ti --network="host" -e CLUSTER_ID=local -e WORKER_ID=pc1-haru1 -e CONTROLLER_URL=http://0.0.0.0:8888 -e WORKER_API_KEY=SC9J867CZp jpleorx/rvkinh-service-worker-haru:latest
+
+
+
+
+# LATEST COMMANDS
+#-----------------------------------------------------------------------------------------------------------------------
+docker build -t jpleorx/rvkinh-worker-haru:latest -f worker-haru/Dockerfile .
+
+docker run \
+    --name=rvkinh-worker-haru-1 \
+    --rm \
+    -ti \
+    --network="host" \
+    -e CLUSTER_ID=local \
+    -e WORKER_ID=pc1-haru1 \
+    -e CONTROLLER_URL=http://0.0.0.0:8888 \
+    -e WORKER_API_KEY=SC9J867CZp \
+    jpleorx/rvkinh-worker-haru:latest
