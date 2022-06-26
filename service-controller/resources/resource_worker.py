@@ -20,7 +20,7 @@ if len(worker_api_key) == 0:
 
 # Default goals for stopped workers
 GOAL_HARU_STOPPED = GoalHaru([], WorkerHaruSettings(-1, -1, '', -1))
-GOAL_AKIO_STOPPED = GoalAkio([], "", "", -1)
+GOAL_AKIO_STOPPED = GoalAkio("", "", -1)
 
 
 # API KEY authentication method
