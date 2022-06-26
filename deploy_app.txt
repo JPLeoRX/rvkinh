@@ -1,0 +1,14 @@
+# LATEST COMMANDS
+#-----------------------------------------------------------------------------------------------------------------------
+docker build -t jpleorx/rvkinh-app:latest -f app/Dockerfile .
+docker push jpleorx/rvkinh-app:latest
+
+docker run \
+    --name=rvkinh-app \
+    --rm \
+    -ti \
+    --network="host" \
+    -e CONTROL_API_KEY=c2uXRF7RLR \
+    -e CONTROLLER_URL=http://0.0.0.0:8888 \
+    -p 4200:4200 \
+    jpleorx/rvkinh-app:latest
