@@ -17,7 +17,7 @@ class ServiceLiveness:
 
     def mark_alive(self, worker: Worker) -> bool:
         with MARK_ALIVE_LOCK:
-            WORKER_LAST_SEEN_TIMESTAMPS_MS[worker] = self.utils_time.get_current_timestamp_ms()
+            WORKER_LAST_SEEN_TIMESTAMPS_MS[worker] = self.utils_time.get_timestamp_ms_now()
             print('ServiceLiveness.mark_alive() ' + str(worker) + ' is alive')
         return True
 
@@ -28,7 +28,7 @@ class ServiceLiveness:
 
         # Find timestamps and their difference
         last_seen_timestamp_ms = WORKER_LAST_SEEN_TIMESTAMPS_MS[worker]
-        current_timestamp_ms = self.utils_time.get_current_timestamp_ms()
+        current_timestamp_ms = self.utils_time.get_timestamp_ms_now()
         delta = current_timestamp_ms - last_seen_timestamp_ms
 
         # Accept that this worker is alive if it was seen less than 3 minutes ago
