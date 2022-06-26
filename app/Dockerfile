@@ -1,7 +1,8 @@
 FROM node:latest as node
 RUN npm install -g @angular/cli
-COPY ./app-frontend /app
+COPY ./app /app
 WORKDIR /app
 RUN npm install
-RUN npm run build --configuration=production
-CMD ["ng", "serve", "--host", "0.0.0.0", "--configuration", "production", "--live-reload", "false", "--disable-host-check", "true"]
+RUN ng build --prod
+RUN chmod a+x main.sh
+CMD './main.sh'

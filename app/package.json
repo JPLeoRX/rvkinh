@@ -1,5 +1,5 @@
 {
-  "name": "app-frontend",
+  "name": "app",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -10,6 +10,7 @@
   },
   "private": true,
   "dependencies": {
+    "@angular-builders/custom-webpack": "^13.1.0",
     "@angular/animations": "~13.1.0",
     "@angular/cdk": "^13.3.2",
     "@angular/common": "~13.1.0",
