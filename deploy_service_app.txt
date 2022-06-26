@@ -1,0 +1,31 @@
+# Run local
+docker build -t jpleorx/rvkinh-service-controller:latest -f service-controller/Dockerfile . && docker run --name=rvkinh-service-controller --rm -ti -e WORKER_API_KEY=abc -p 8888:8888 jpleorx/rvkinh-service-controller:latest
+
+# Run remote
+docker run --name=rvkinh-service-central --rm -ti --network="host" -e WORKER_PROXY_RABBITMQ_HOST=142.93.38.82 -e WORKER_PROXY_RABBITMQ_PORT=5672 -e WORKER_PROXY_RABBITMQ_USERNAME=myUser -e WORKER_PROXY_RABBITMQ_PASSWORD=myPassword -p 8888:8888 jpleorx/rvkinh-service-central:latest
+
+# Upload to dockerhub
+docker build -t jpleorx/rvkinh-service-controller:latest -f service-controller/Dockerfile . && docker push jpleorx/rvkinh-service-controller:latest
+
+
+
+docker run --name=rvkinh-service-controller --rm -ti --network="host" -e CONTROL_API_KEY=c2uXRF7RLR -e WORKER_API_KEY=SC9J867CZp -p 8888:8888 jpleorx/rvkinh-service-controller:latest
+
+
+
+
+
+
+# LATEST COMMANDS
+#-----------------------------------------------------------------------------------------------------------------------
+docker build -t jpleorx/rvkinh-controller:latest -f controller/Dockerfile .
+
+docker run \
+    --name=rvkinh-controller \
+    --rm \
+    -ti \
+    --network="host" \
+    -e CONTROL_API_KEY=c2uXRF7RLR \
+    -e CONTROLLER_URL=http://0.0.0.0:8888 \
+    -p 8888:8888 \
+    jpleorx/rvkinh-controller:latest
