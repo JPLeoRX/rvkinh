@@ -6,4 +6,5 @@ docker build -t jpleorx/rvkinh-service-worker-aiko:latest -f service-worker-aiko
 docker run --name=rvkinh-service-central --rm -ti --network="host" -e WORKER_PROXY_RABBITMQ_HOST=142.93.38.82 -e WORKER_PROXY_RABBITMQ_PORT=5672 -e WORKER_PROXY_RABBITMQ_USERNAME=myUser -e WORKER_PROXY_RABBITMQ_PASSWORD=myPassword -p 8888:8888 jpleorx/rvkinh-service-central:latest
 
 # Upload to dockerhub
-docker build -t jpleorx/rvkinh-service-central:latest -f service-central/Dockerfile . && docker push jpleorx/rvkinh-service-central:latest
+docker build -t jpleorx/rvkinh-service-worker-aiko:latest -f service-worker-aiko/Dockerfile . && docker push jpleorx/rvkinh-service-worker-aiko:latest
+
