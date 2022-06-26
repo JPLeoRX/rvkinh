@@ -18,14 +18,14 @@ docker run --name=rvkinh-service-controller --rm -ti --network="host" -e CONTROL
 
 # LATEST COMMANDS
 #-----------------------------------------------------------------------------------------------------------------------
-docker build -t jpleorx/rvkinh-controller:latest -f controller/Dockerfile .
+docker build -t jpleorx/rvkinh-app:latest -f app/Dockerfile .
 
 docker run \
-    --name=rvkinh-controller \
+    --name=rvkinh-app \
     --rm \
     -ti \
     --network="host" \
     -e CONTROL_API_KEY=c2uXRF7RLR \
     -e CONTROLLER_URL=http://0.0.0.0:8888 \
-    -p 8888:8888 \
-    jpleorx/rvkinh-controller:latest
+    -p 4200:4200 \
+    jpleorx/rvkinh-app:latest
