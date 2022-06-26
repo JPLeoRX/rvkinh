@@ -1,3 +1,5 @@
+app-frontend/node_modules
+
 shared-message-protocol/build
 shared-message-protocol/dist
 shared-message-protocol/rvkinh_message_protocol.egg-info
