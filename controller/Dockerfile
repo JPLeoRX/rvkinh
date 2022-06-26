@@ -43,7 +43,7 @@ WORKDIR /shared-message-client
 RUN python setup.py sdist bdist_wheel && pip install .
 
 # Main app
-COPY ./service-controller /app
+COPY ./controller /app
 WORKDIR /app
 RUN chmod a+x main.sh
 

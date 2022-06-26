@@ -18,7 +18,7 @@ docker run --name=rvkinh-service-controller --rm -ti --network="host" -e CONTROL
 
 # LATEST COMMANDS
 #-----------------------------------------------------------------------------------------------------------------------
-docker build -t jpleorx/rvkinh-controller:latest -f service-controller/Dockerfile .
+docker build -t jpleorx/rvkinh-controller:latest -f controller/Dockerfile .
 
 docker run \
     --name=rvkinh-controller \
