@@ -1,3 +1,10 @@
+
+
+Yes, this was created during the first days of the war, so the name takes inspiration from the now legendary war story. 
+
+This tool was developed for educational purposes only. Obviously don't try to use it on real targets, do not attack servers that you don’t own, or you don’t have permission to stress-test.  
+
+
 # Preparations
 - Port scanner
 

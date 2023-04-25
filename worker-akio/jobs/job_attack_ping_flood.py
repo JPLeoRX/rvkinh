@@ -23,7 +23,7 @@ class JobAttackPingFlood(AbstractJob):
     def launch_attack_in_thread(self, thread_index: int, target_ip_address: str):
         print('JobAttackPingFlood.launch_attack_in_thread(): Started thread ' + str(thread_index))
         if target_ip_address is not None and len(target_ip_address) > 0:
-            self.utils_scapy.attack_ping_flood(target_ip_address, number_of_packets_to_send=3, size_of_packet=65500, spoof_source_ip=False)
+            self.utils_scapy.attack_ping_flood(target_ip_address, number_of_packets_to_send=3, size_of_packet=65500)
         print('JobAttackPingFlood.launch_attack_in_thread(): Finished thread ' + str(thread_index))
 
     def job_iteration(self):
